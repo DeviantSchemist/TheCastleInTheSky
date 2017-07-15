@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Citizen : MonoBehaviour {
+public class Civilian : MonoBehaviour {
 
-    private static float ageInt;
+    float ageInt;
 
 
 	// Use this for initialization
 	void Start () {
-        ageInt = 10f;
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    public Civilian() {
+        ageInt = 10f;
+    }
 
     public void spawn()
     {

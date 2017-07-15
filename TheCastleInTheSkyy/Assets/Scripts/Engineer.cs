@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Soldier : Civilian {
+public class Engineer : Civilian {
 
 	// Use this for initialization
 	void Start () {
