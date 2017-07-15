@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Engineer : Civilian {
 
+    private int engAmount;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -13,4 +15,9 @@ public class Engineer : Civilian {
 	void Update () {
 		
 	}
+
+    int getEngAmount()
+    {
+        return engAmount;
+    }
 }
