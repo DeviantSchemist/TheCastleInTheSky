@@ -6,6 +6,13 @@ public class Soldier : Civilian {
 
     private Weapon myWeapon;
 
+	// Constructor 
+	public Soldier(){
+		weight = 2;
+		decayRate = 7;
+		unitType = 3;
+	}
+
 	// Use this for initialization
 	void Start () {
         myWeapon = new Weapon();

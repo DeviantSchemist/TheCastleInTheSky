@@ -9,6 +9,22 @@ public class Engineer : Civilian {
     private float engTime;
     bool becomeEng;
 
+	// Main onstructor 
+	public Engineer(){
+		weight = 1;
+		decayRate = 4;
+		unitType = 2;
+	}
+
+	int getEngAmount(){
+		return engAmount;
+	}
+
+	bool engCheck(){
+		return becomeEng;
+	}
+
+
 	// Use this for initialization
 	void Start () {
         engTime = 6f;
@@ -24,13 +40,5 @@ public class Engineer : Civilian {
         }
 	}
 
-    int getEngAmount()
-    {
-        return engAmount;
-    }
-
-    bool engCheck()
-    {
-        return becomeEng;
-    }
+   
 }
