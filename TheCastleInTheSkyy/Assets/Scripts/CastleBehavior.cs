@@ -8,17 +8,24 @@ public class CastleBehavior : MonoBehaviour {
 
 	//  Castle Class 
 	public class Castle{
-		private int citizenCount;		// Amount of citizens in the castle
-		private int castleWeight;		// Castle's current weight 
-		private int maxWeightCapacity;	// Maximum capacity of citizens to keep castle floating 
-		private int castleHeightDist; 	// Castle's current distance off the ground
-		private int maxHeightDist;		// Maximum distance castle can be frrom the ground in feet
-		private int deathHeight;		// When the castle reach this distance off the ground in feet than gameover
-		private int dayCounter;			// Keeps track of the amount of days that pass by 
+		private List<Civilian> civilians;		// List of civilians (or units) in the castle 
+		private int civiliansCount;				// Amount of citizens in the castle
+		private int castleWeight;				// Castle's current weight 
+		private int maxWeightCapacity;			// Maximum capacity of citizens to keep castle floating 
+		private int castleHeightDist; 			// Castle's current distance off the ground
+		private int maxHeightDist;				// Maximum distance castle can be frrom the ground in feet
+		private int deathHeight;				// When the castle reach this distance off the ground in feet than gameover
+		private int dayCounter;					// Keeps track of the amount of days that pass by 
 
 		// Constructor (Numbers are placeholders atm)
 		public Castle(){
-			citizenCount = 20;
+			civilians = new List<Civilian>();
+
+			for(int i = 0; i < 10 ; i++){
+				civilians.Add( new Civilian());
+			}
+		
+			civiliansCount = civilians.Capacity;
 			castleWeight = 30;
 			maxWeightCapacity = 50;
 			castleHeightDist = 45000;
@@ -27,9 +34,10 @@ public class CastleBehavior : MonoBehaviour {
 			dayCounter = 1;
 		}
 
-		// Overloaded constructor 
+		// Overloaded constructor (Not sure if needed)
 		public Castle(int citzC, int cW, int mWC, int cHD, int mHD, int dH, int dC){
-			citizenCount = citzC;
+			civilians = new List<Civilian>();
+			civiliansCount = citzC;
 			castleWeight = cW;
 			maxWeightCapacity = mWC;
 			castleHeightDist = cHD;
@@ -37,17 +45,10 @@ public class CastleBehavior : MonoBehaviour {
 			deathHeight = dH;
 			dayCounter = dC;
 		}
-
-		/* Setter function for citizen count 
-		 * @param citzC - Amo
-		 */
-		public void setCitizenCount(int citzC){
-			citizenCount = citzC;
-		}
-
+			
 		// Getter function for citizen count 
 		public int getCitizenCount(){
-			return citizenCount;
+			return civiliansCount;
 		}
 
 		// Setter function for the Castle height distance off the ground in ft
@@ -74,14 +75,14 @@ public class CastleBehavior : MonoBehaviour {
 		 * @param addCitz - This is the amount of citizens you want to add in the castle 
 		 */
 		public void addCitizenCount(int addCitz){
-			citizenCount += addCitz;
+			civiliansCount += addCitz;
 		}
 
 		/* Function is used to subtract citizens from the castle
 		 * @param subtrCitz - This is the amount of citizens you want to subtract in the castle 
 		 */
 		public void subtrCitizenCount(int subtrCitz){
-			citizenCount -= subtrCitz;
+			civiliansCount -= subtrCitz;
 		}
 
 		public void addCastleWeight(int addWeight){
@@ -92,9 +93,19 @@ public class CastleBehavior : MonoBehaviour {
 			castleWeight -= subtrWeight;
 		}
 
+		public void decendingRate(){
+
+		}
+
+		public void acendingRate(){
+
+		}
+
+		public void populationGrowth
+
 
 	}
-		
+	// Growth Rate: Total units/2 (rounded down) 
 
 
 
