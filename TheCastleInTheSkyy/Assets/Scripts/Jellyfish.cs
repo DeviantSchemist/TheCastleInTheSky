@@ -18,9 +18,10 @@ public class Jellyfish : MonoBehaviour {
 
     void onCollisionEnter(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Civilian" || collision.gameObject.tag == "Soldier" || collision.gameObject.tag == "Engineer")
+        if (collision.gameObject.tag == "Civilian" || collision.gameObject.tag == "Soldier" || collision.gameObject.tag == "Engineer"
+            || collision.gameObject.tag == "Ship")
         {
-            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
         }
     }
 }
