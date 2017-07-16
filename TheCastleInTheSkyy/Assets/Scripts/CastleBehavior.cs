@@ -109,6 +109,7 @@ public class CastleBehavior : MonoBehaviour {
 
 			// For loop counts the amount of engineers in the castle 
 			for(int i = 0; i < civilians.Count; i++){
+
 				if(civilians[i].getUnitType() == 2){
 					engrCount += 1;
 				}
