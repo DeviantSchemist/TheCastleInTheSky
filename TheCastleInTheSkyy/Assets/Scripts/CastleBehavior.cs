@@ -33,7 +33,7 @@ public class CastleBehavior : MonoBehaviour {
 
 			// For loop access all the civilians weight and add them together to get Castle Weight 
 			for(int i = 0; i < civilians.Capacity; i++){
-				castleWeight += civilians[i].getWeight;
+				castleWeight += civilians[i].getWeight();
 			}
 
 			maxWeightCapacity = 100;				
@@ -68,7 +68,7 @@ public class CastleBehavior : MonoBehaviour {
 		}
 
 		// Getter function for Castle height distance 
-		public int getCastleHeightDist(){
+		public float getCastleHeightDist(){
 			return castleHeightDist;
 		}
 
@@ -91,19 +91,19 @@ public class CastleBehavior : MonoBehaviour {
 		public void updateCastleWeight(){
 			// For loop access all the civilians weight and add them together to get Castle Weight 
 			for(int i = 0; i < civilians.Capacity; i++){
-				castleWeight += civilians[i].getWeight;
+				castleWeight += civilians[i].getWeight();
 			}
 		}
 
 		// Function will determine the decending or acending rate of the castle depending on the castle's distance of the ground and the castle's weight 
 		// This function will run every frame and the decending/acending rate is about 10,000 ft per day which is 10,000 ft every 3 min in real time 
 		public void decending_Ascending_Rate(){
-			int engrCount;
+			int engrCount = 0;
 			bool unstableCastle = false;
 
 			// For loop counts the amount of engineers in the castle 
 			for(int i = 0; i < civilians.Capacity; i++){
-				if(civilians[i].getUnitType == 2){
+				if(civilians[i].getUnitType() == 2){
 					engrCount += 1;
 				}
 			}
@@ -123,11 +123,11 @@ public class CastleBehavior : MonoBehaviour {
 				unstableCastle = true;
 
 			if (unstableCastle == true){
-				castleHeightDist -= 0.926;
+				castleHeightDist -= 0.926f;
 			}
 
 			if( unstableCastle == false && castleHeightDist != maxHeightDist){
-				castleHeightDist += 0.926;
+				castleHeightDist += 0.926f;
 			}
 
 
@@ -147,7 +147,7 @@ public class CastleBehavior : MonoBehaviour {
 		public void populationGrowth(){
 			if (timeCounter == 10799) {
 				int populationGrowth = (civilians.Capacity / 2);
-				for (int i = 0; i < populationGrowth; i + 1) {
+				for (int i = 0; i < populationGrowth; i ++) {
 					civilians.Add (new Civilian ());
 				}
 
@@ -169,11 +169,11 @@ public class CastleBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		castle.updateCastleWeight;
-		castle.updateCivilianCount;
-		castle.decending_Ascending_Rate;
-		castle.updateTime;
-		castle.populationGrowth;
+		castle.updateCastleWeight();
+		castle.updateCivilianCount();
+		castle.decending_Ascending_Rate();
+		castle.updateTime();
+		castle.populationGrowth();
 		
 	}
 }
