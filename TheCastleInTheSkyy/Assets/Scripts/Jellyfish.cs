@@ -11,7 +11,7 @@ public class Jellyfish : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         target = GameObject.Find("Ship").GetComponent<Transform>();
-        speed = 5f;
+        speed = 2f;
 	}
 	
 	// Update is called once per frame
@@ -22,8 +22,8 @@ public class Jellyfish : MonoBehaviour {
 
     void onCollisionEnter(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Civilian" || collision.gameObject.tag == "Soldier" || collision.gameObject.tag == "Engineer"
-            || collision.gameObject.tag == "Ship")
+        if (collision.gameObject.name == "Civilian" || collision.gameObject.name == "Soldier" || collision.gameObject.name == "Engineer"
+            || collision.gameObject.name == "Ship")
         {
             Destroy(this.gameObject);
         }
