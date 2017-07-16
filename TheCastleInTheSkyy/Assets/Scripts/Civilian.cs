@@ -4,7 +4,31 @@ using UnityEngine;
 
 public class Civilian : MonoBehaviour {
 
-    float ageInt;
+	protected float decayRate;			// This is the rate the decay rate that determines when a unit becomes scrap 
+	protected float weight;				// Weight of the unit 
+	protected int unitType;				// Unit tyoe is associated with a number 
+
+	// Main constructor 
+	public Civilian() {
+		decayRate = 10;
+		weight = 1;
+		unitType = 1;
+	}
+
+	//how fast each class ages
+	public void aging(){
+		
+	}
+
+	// Getter function for citizens 
+	public float getWeight(){
+		return weight;
+	}
+
+	// Getter function for unit type 
+	public int getUnitType(){
+		return unitType;
+	}
 
 
 	// Use this for initialization
@@ -17,17 +41,5 @@ public class Civilian : MonoBehaviour {
 		
 	}
 
-    public Civilian() {
-        ageInt = 10f;
-    }
-
-    public void spawn()
-    {
-        //spawn mechanic
-    }
-
-    public void aging()
-    {
-        //how fast each class ages
-    }
+   
 }

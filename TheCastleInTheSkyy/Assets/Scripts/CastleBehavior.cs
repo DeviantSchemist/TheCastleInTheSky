@@ -10,32 +10,43 @@ public class CastleBehavior : MonoBehaviour {
 	public class Castle{
 		private List<Civilian> civilians;		// List of civilians (or units) in the castle 
 		private int civiliansCount;				// Amount of citizens in the castle
-		private int castleWeight;				// Castle's current weight 
+		private float castleWeight;				// Castle's current weight 
 		private int maxWeightCapacity;			// Maximum capacity of citizens to keep castle floating 
-		private int castleHeightDist; 			// Castle's current distance off the ground
+		private float castleHeightDist; 			// Castle's current distance off the ground
 		private int maxHeightDist;				// Maximum distance castle can be frrom the ground in feet
 		private int deathHeight;				// When the castle reach this distance off the ground in feet than gameover
 		private int dayCounter;					// Keeps track of the amount of days that pass by 
+		private int neededEngr;					// Number of engineers needed to keep the castle in the sky 
+		private int timeCounter;
 
 		// Constructor (Numbers are placeholders atm)
 		public Castle(){
 			civilians = new List<Civilian>();
 
-			for(int i = 0; i < 10 ; i++){
+			// For every new game when a castle is created it will always come with 2 citizens and a engineer 
+			civilians.Add(new Engineer());
+			for(int i = 0; i < 2 ; i++){
 				civilians.Add( new Civilian());
 			}
-		
+
 			civiliansCount = civilians.Capacity;
-			castleWeight = 30;
-			maxWeightCapacity = 50;
-			castleHeightDist = 45000;
-			maxHeightDist = 45000;
-			deathHeight = 5000;
-			dayCounter = 1;
+
+			// For loop access all the civilians weight and add them together to get Castle Weight 
+			for(int i = 0; i < civilians.Capacity; i++){
+				castleWeight += civilians[i].getWeight;
+			}
+
+			maxWeightCapacity = 100;				
+			castleHeightDist = 50000;			// Starting off castle height distance in ft
+			maxHeightDist = 50000;				// The max height the castle can be from the ground 
+			deathHeight = 10000;				// Once castle reaches 10,000 ft off the ground then gameover  
+			dayCounter = 1;						// Game starts off in day 1 
+			neededEngr = 3;						// Castle needs 3 engineers to keep the castle from decending 
+			timeCounter = 0;
 		}
 
-		// Overloaded constructor (Not sure if needed)
-		public Castle(int citzC, int cW, int mWC, int cHD, int mHD, int dH, int dC){
+		// Overloaded constructor *MIGHT NOT BE NEEDED*
+		public Castle(int citzC, float cW, int mWC, float cHD, int mHD, int dH, int dC){
 			civilians = new List<Civilian>();
 			civiliansCount = citzC;
 			castleWeight = cW;
@@ -71,42 +82,83 @@ public class CastleBehavior : MonoBehaviour {
 			return dayCounter;
 		}
 
-		/* Function is used to add citizens in the castle 
-		 * @param addCitz - This is the amount of citizens you want to add in the castle 
-		 */
-		public void addCitizenCount(int addCitz){
-			civiliansCount += addCitz;
+		// Function updates the civilian count by counting all the units in the castle 
+		public void updateCivilianCount(){
+			civiliansCount = civilians.Capacity;
 		}
 
-		/* Function is used to subtract citizens from the castle
-		 * @param subtrCitz - This is the amount of citizens you want to subtract in the castle 
-		 */
-		public void subtrCitizenCount(int subtrCitz){
-			civiliansCount -= subtrCitz;
+		// Function updates the castle weight 
+		public void updateCastleWeight(){
+			// For loop access all the civilians weight and add them together to get Castle Weight 
+			for(int i = 0; i < civilians.Capacity; i++){
+				castleWeight += civilians[i].getWeight;
+			}
 		}
 
-		public void addCastleWeight(int addWeight){
-			castleWeight += addWeight;
+		// Function will determine the decending or acending rate of the castle depending on the castle's distance of the ground and the castle's weight 
+		// This function will run every frame and the decending/acending rate is about 10,000 ft per day which is 10,000 ft every 3 min in real time 
+		public void decending_Ascending_Rate(){
+			int engrCount;
+			bool unstableCastle = false;
+
+			// For loop counts the amount of engineers in the castle 
+			for(int i = 0; i < civilians.Capacity; i++){
+				if(civilians[i].getUnitType == 2){
+					engrCount += 1;
+				}
+			}
+
+			if(engrCount < 3){
+				unstableCastle = true;
+			}
+
+			// if else statements determine if the castle will descend depnding on certain requirements based on castle distance off the ground and the castle weight 
+			if (castleHeightDist > 40000 && castleHeightDist < 50000 && castleWeight >= 20 && castleWeight < 40)
+				unstableCastle = true;
+			else if (castleHeightDist > 30000 && castleHeightDist < 40000 && castleWeight >= 40 && castleWeight < 60)
+				unstableCastle = true;
+			else if (castleHeightDist > 20000 && castleHeightDist < 30000 && castleWeight >= 60 && castleWeight < 80)
+				unstableCastle = true;
+			else if (castleHeightDist > 10000 && castleHeightDist < 20000 && castleWeight >= 80 && castleWeight < 100)
+				unstableCastle = true;
+
+			if (unstableCastle == true){
+				castleHeightDist -= 0.926;
+			}
+
+			if( unstableCastle == false && castleHeightDist != maxHeightDist){
+				castleHeightDist += 0.926;
+			}
+
+
 		}
 
-		public void subtrCastleWeight(int subtrWeight){
-			castleWeight -= subtrWeight;
+		// updateTime function will run every frame in the update function and will incremnt every frame, since the game will run 
+		// 60 frames per second and a day in the game is 3 min in real time. Day counter will increment every 10,800 frames or 3 mins 
+		public void updateTime(){
+			timeCounter += 1;
+			if (timeCounter == 10800) {
+				dayCounter += 1;
+				timeCounter = 0;
+			}
 		}
+			
 
-		public void decendingRate(){
+		public void populationGrowth(){
+			if (timeCounter == 10799) {
+				int populationGrowth = (civilians.Capacity / 2);
+				for (int i = 0; i < populationGrowth; i + 1) {
+					civilians.Add (new Civilian ());
+				}
 
+			}
 		}
-
-		public void acendingRate(){
-
-		}
-
-		public void populationGrowth
 
 
 	}
 	// Growth Rate: Total units/2 (rounded down) 
 
+	public Castle castle = new Castle ();
 
 
 
@@ -117,6 +169,11 @@ public class CastleBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		castle.updateCastleWeight;
+		castle.updateCivilianCount;
+		castle.decending_Ascending_Rate;
+		castle.updateTime;
+		castle.populationGrowth;
 		
 	}
 }
