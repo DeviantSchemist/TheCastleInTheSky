@@ -11,6 +11,8 @@ public class Soldier : Civilian {
 		weight = 2;
 		decayRate = 7;
 		unitType = 3;
+		decay = false;
+		lifeSpan = 0;
 	}
 
 	// Use this for initialization
@@ -20,6 +22,6 @@ public class Soldier : Civilian {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		unitDecay();
 	}
 }
