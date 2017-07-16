@@ -15,4 +15,12 @@ public class Jellyfish : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    void onCollisionEnter(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Civilian" || collision.gameObject.tag == "Soldier" || collision.gameObject.tag == "Engineer")
+        {
+            Destroy(collision.gameObject);
+        }
+    }
 }
