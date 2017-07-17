@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class CastleBehavior : MonoBehaviour {
 
+	public Text text;
+
 	//  Castle Class 
 	public class Castle{
 		private List<Civilian> civilians;		// List of civilians (or units) in the castle 
@@ -56,6 +58,42 @@ public class CastleBehavior : MonoBehaviour {
 			maxHeightDist = mHD;
 			deathHeight = dH;
 			dayCounter = dC;
+		}
+
+		public int getEngrCount(){
+			int engrCount = 0;
+			for (int i = 0; i < civilians.Count; i++) {
+				if (civilians [i].getUnitType () == 2)
+					engrCount++;
+			}
+			return engrCount;
+		}
+
+		public int getCivCount(){
+			int civCount = 0;
+			for (int i = 0; i < civilians.Count; i++) {
+				if (civilians [i].getUnitType () == 1)
+					civCount++;
+			}
+			return civCount;
+		}
+
+		public int getScrapCount(){
+			int engrCount = 0;
+			for (int i = 0; i < civilians.Count; i++) {
+				if (civilians [i].getUnitType () == 4)
+					engrCount++;
+			}
+			return engrCount;
+		}
+
+		public int getSoldierCount(){
+			int engrCount = 0;
+			for (int i = 0; i < civilians.Count; i++) {
+				if (civilians [i].getUnitType () == 3)
+					engrCount++;
+			}
+			return engrCount;
 		}
 			
 		// Getter function for citizen count 
@@ -255,6 +293,9 @@ public class CastleBehavior : MonoBehaviour {
 		castle.updateTime();
 		castle.populationGrowth();
 		castle.checkDecayUnits();
+		int con = castle.getDayCounter();
+		string convert = con.ToString();
+		text.text = convert;
 	}
 	
 	// Update is called once per frame
@@ -266,5 +307,8 @@ public class CastleBehavior : MonoBehaviour {
 		castle.updateTime();
 		castle.populationGrowth();
 		castle.checkDecayUnits();
+		int con = castle.getDayCounter();
+		string convert = con.ToString();
+		text.text = convert;
 	}
 }
