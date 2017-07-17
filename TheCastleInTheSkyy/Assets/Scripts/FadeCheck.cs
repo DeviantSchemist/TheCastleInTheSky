@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FadeCheck : MonoBehaviour {
 
+    
+
 	// Use this for initialization
 	void Start () {
 		
@@ -13,4 +15,11 @@ public class FadeCheck : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    void OnCollisionEnter2D (Collision2D collision) {
+        if (collision.gameObject.name == "Boundary")
+        {
+            
+        }
+    }
 }
