@@ -20,12 +20,13 @@ public class Jellyfish : MonoBehaviour {
         transform.position = Vector3.MoveTowards(transform.position, target.position, step);  // gradual movement
 	}
 
-    void onCollisionEnter(Collision2D collision)
+    void OnCollisionEnter2D (Collision2D collision)
     {
         if (collision.gameObject.name == "Civilian" || collision.gameObject.name == "Soldier" || collision.gameObject.name == "Engineer"
             || collision.gameObject.name == "Ship")
         {
             Destroy(this.gameObject);
+            Debug.Log("Collision detected!");
         }
     }
 }
