@@ -12,7 +12,9 @@ public class Fade : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        fadeOutTexture = new Texture2D(1, 1);
+        fadeOutTexture.SetPixel(0, 0, Color.black);
+        fadeOutTexture.Apply();
 	}
 	
 	// Update is called once per frame
@@ -32,7 +34,7 @@ public class Fade : MonoBehaviour {
     public float BeginFade(int direction)
     {
         fadeDir = direction;
-        return fadeSpeed;
+        return (fadeSpeed);
     }
 
     public void LoadLevel()
