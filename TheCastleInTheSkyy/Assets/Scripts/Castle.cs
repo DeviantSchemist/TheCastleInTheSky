@@ -284,7 +284,7 @@ public class Castle : MonoBehaviour {
 
     public void increaseWeight()
     {
-        whale.gravityScale = castleWeight * .001f;
+        whale.gravityScale = castleWeight * .000001f;
     }
 
     // Use this for initialization
@@ -299,8 +299,8 @@ public class Castle : MonoBehaviour {
 		populationGrowth();
 		checkDecayUnits();
 		int con = getDayCounter();
-		string convert = con.ToString();
-		text.text = convert;
+		//string convert = con.ToString();
+		//text.text = convert;
 	}
 	
 	// Update is called once per frame
@@ -313,7 +313,9 @@ public class Castle : MonoBehaviour {
 		populationGrowth();
 		checkDecayUnits();
 		int con = getDayCounter();
-		string convert = con.ToString();
-		text.text = convert;
+        //string convert = con.ToString();
+        //text.text = convert;
+        increaseWeight();
+        //Debug.Log("Gravity scale: " + whale.gravityScale);
 	}
 }
