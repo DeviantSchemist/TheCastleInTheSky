@@ -22,6 +22,7 @@ public class Castle : MonoBehaviour {
         
 
 		// Constructor (Numbers are placeholders atm)
+        // Constructor still works with no explicit object declaration, I'm assuming Unity auto detects constructors
 		public Castle(){
 			civilians = new List<Civilian>();
 
@@ -32,11 +33,11 @@ public class Castle : MonoBehaviour {
 			}
 
 			civiliansCount = civilians.Count;
-			print(civiliansCount); 
+			//print(civiliansCount); 
 
 			// For loop access all the civilians weight and add them together to get Castle Weight 
 			for(int i = 0; i < civilians.Count; i++){
-				castleWeight = castleWeight + civilians[i].getWeight();
+				castleWeight += civilians[i].getWeight();
 			}
 
 			maxWeightCapacity = 100;				
@@ -135,7 +136,7 @@ public class Castle : MonoBehaviour {
 		public void updateCastleWeight(){
 			// For loop access all the civilians weight and add them together to get Castle Weight 
 			for(int i = 0; i < civilians.Count; i++){
-				castleWeight += civilians[i].getWeight();
+				castleWeight += civilians[i].getWeight() * Time.deltaTime;
 			}
 		}
 
@@ -290,6 +291,7 @@ public class Castle : MonoBehaviour {
     // Use this for initialization
     void Start () {
         whale = GetComponent<Rigidbody2D>();
+        //Debug.Log("Civilian numbers: " + civilians.Count);
         //castle = new Castle ();
 		gameover();
 		updateCastleWeight();
@@ -320,6 +322,6 @@ public class Castle : MonoBehaviour {
             increaseWeight();
         }
         //Debug.Log("Gravity scale: " + whale.gravityScale);
-        //Debug.Log("Weight: " + castleWeight);
+        Debug.Log("Weight: " + castleWeight);
 	}
 }
