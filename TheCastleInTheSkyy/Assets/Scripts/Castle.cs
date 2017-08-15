@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class CastleBehavior : MonoBehaviour {
+public class Castle : MonoBehaviour {
 
 	public Text text;
+    public Rigidbody2D whale;
 
-	//  Castle Class 
-	public class Castle{
 		private List<Civilian> civilians;		// List of civilians (or units) in the castle 
 		private int civiliansCount;				// Amount of citizens in the castle
 		private float castleWeight;				// Castle's current weight 
@@ -20,6 +19,7 @@ public class CastleBehavior : MonoBehaviour {
 		private int dayCounter;					// Keeps track of the amount of days that pass by 
 		private int neededEngr;					// Number of engineers needed to keep the castle in the sky 
 		private int timeCounter;
+        
 
 		// Constructor (Numbers are placeholders atm)
 		public Castle(){
@@ -275,39 +275,44 @@ public class CastleBehavior : MonoBehaviour {
 				print ("GAMEOVER");
 		}
 			
-
-	}
-
-
-	public Castle castle;
+        
 
 
 
-	// Use this for initialization
-	void Start () {
-		castle = new Castle ();
-		castle.gameover();
-		castle.updateCastleWeight();
-		castle.updateCivilianCount();
-		castle.decending_Ascending_Rate();
-		castle.updateTime();
-		castle.populationGrowth();
-		castle.checkDecayUnits();
-		int con = castle.getDayCounter();
+
+	//public Castle castle;
+
+    public void increaseWeight()
+    {
+        whale.gravityScale = castleWeight * .001f;
+    }
+
+    // Use this for initialization
+    void Start () {
+        whale = GetComponent<Rigidbody2D>();
+        //castle = new Castle ();
+		gameover();
+		updateCastleWeight();
+		updateCivilianCount();
+		decending_Ascending_Rate();
+		updateTime();
+		populationGrowth();
+		checkDecayUnits();
+		int con = getDayCounter();
 		string convert = con.ToString();
 		text.text = convert;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		castle.gameover();
-		castle.updateCastleWeight();
-		castle.updateCivilianCount();
-		castle.decending_Ascending_Rate();
-		castle.updateTime();
-		castle.populationGrowth();
-		castle.checkDecayUnits();
-		int con = castle.getDayCounter();
+		gameover();
+		updateCastleWeight();
+		updateCivilianCount();
+		decending_Ascending_Rate();
+		updateTime();
+		populationGrowth();
+		checkDecayUnits();
+		int con = getDayCounter();
 		string convert = con.ToString();
 		text.text = convert;
 	}
