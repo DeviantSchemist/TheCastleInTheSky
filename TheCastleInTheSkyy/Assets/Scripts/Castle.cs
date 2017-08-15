@@ -315,7 +315,11 @@ public class Castle : MonoBehaviour {
 		int con = getDayCounter();
         //string convert = con.ToString();
         //text.text = convert;
-        increaseWeight();
+        if (castleWeight > 2000)
+        {
+            increaseWeight();
+        }
         //Debug.Log("Gravity scale: " + whale.gravityScale);
+        //Debug.Log("Weight: " + castleWeight);
 	}
 }
