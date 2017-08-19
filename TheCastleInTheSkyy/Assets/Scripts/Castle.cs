@@ -285,7 +285,9 @@ public class Castle : MonoBehaviour {
 
     public void increaseWeight()
     {
-        whale.gravityScale = castleWeight * .000001f;
+        // have to make whale.gravityScale increase and decrease by 0.926f
+        whale.gravityScale += 0.926f;
+        //whale.gravityScale = castleWeight * .000001f;
     }
 
     // Use this for initialization
