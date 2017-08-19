@@ -136,8 +136,10 @@ public class Castle : MonoBehaviour {
 		public void updateCastleWeight(){
 			// For loop access all the civilians weight and add them together to get Castle Weight 
 			for(int i = 0; i < civilians.Count; i++){
-				castleWeight += civilians[i].getWeight() * Time.deltaTime;
-			}
+				//castleWeight += civilians[i].getWeight() * Time.deltaTime;
+                castleWeight += civilians[i].getWeight();
+
+            }
 		}
 
 		// Function will determine the decending or acending rate of the castle depending on the castle's distance of the ground and the castle's weight 
@@ -286,7 +288,7 @@ public class Castle : MonoBehaviour {
     public void increaseWeight()
     {
         // have to make whale.gravityScale increase and decrease by 0.926f
-        whale.gravityScale += 0.926f;
+        whale.gravityScale += 0.926f * Time.deltaTime;
         //whale.gravityScale = castleWeight * .000001f;
     }
 
