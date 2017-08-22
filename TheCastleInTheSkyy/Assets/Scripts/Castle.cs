@@ -8,6 +8,7 @@ public class Castle : MonoBehaviour {
 
 	public Text text;
     public Rigidbody2D whale;
+    private Transform whaleLocation;
 
 		private List<Civilian> civilians;		// List of civilians (or units) in the castle 
 		private int civiliansCount;				// Amount of citizens in the castle
@@ -278,7 +279,8 @@ public class Castle : MonoBehaviour {
 				print ("GAMEOVER");
 		}
 			
-        
+        //need to implement a function that decreases weight of the whale
+        //will need to use Vector3.MoveTowards
 
 
 
@@ -295,6 +297,7 @@ public class Castle : MonoBehaviour {
     // Use this for initialization
     void Start () {
         whale = GetComponent<Rigidbody2D>();
+        whaleLocation = whale.transform;
         //Debug.Log("Civilian numbers: " + civilians.Count);
         //castle = new Castle ();
 		gameover();
