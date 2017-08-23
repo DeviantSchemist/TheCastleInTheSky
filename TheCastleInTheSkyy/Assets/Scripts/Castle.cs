@@ -285,7 +285,7 @@ public class Castle : MonoBehaviour {
     void floatUp()
     {
         whale.gravityScale = 0;
-        whale.velocity = Vector3.zero;
+        whale.velocity = Vector3.zero;   //whale bounces up and down because this line and the line below it are called in update
         whale.velocity = new Vector3(0, 1, 0);
         Vector3.MoveTowards(whale.position, whaleLocation, Mathf.Abs(whale.position.y - whaleLocation.y));
         //Debug.Log("whale origin: " + whaleLocation);
