@@ -284,7 +284,12 @@ public class Castle : MonoBehaviour {
         //will need to use Vector3.MoveTowards
     void floatUp()
     {
+        whale.gravityScale = 0;
+        whale.velocity = Vector3.zero;
+        whale.velocity = new Vector3(0, 1, 0);
         Vector3.MoveTowards(whale.position, whaleLocation, Mathf.Abs(whale.position.y - whaleLocation.y));
+        //Debug.Log("whale origin: " + whaleLocation);
+        //Debug.Log("whale current: " + whale.position);
     }
 
 
@@ -295,6 +300,7 @@ public class Castle : MonoBehaviour {
     {
         // have to make whale.gravityScale increase and decrease by 0.926f
         whale.gravityScale += 0.926f * Time.deltaTime;
+        //Debug.Log("castle y: " + whale.position.y);
         //whale.gravityScale = castleWeight * .000001f;
     }
 
@@ -332,7 +338,14 @@ public class Castle : MonoBehaviour {
         {
             increaseWeight();
         }
+
+        if (whale.position.y < -2)
+        {
+            floatUp();
+        }
         //Debug.Log("Gravity scale: " + whale.gravityScale);
-        Debug.Log("Weight: " + castleWeight);
+        //Debug.Log("Weight: " + castleWeight);
+        //Debug.Log("Castle height: " + castleHeightDist);
+        
 	}
 }
