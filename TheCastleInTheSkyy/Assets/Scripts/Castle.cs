@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class CastleBehavior : MonoBehaviour {
+public class Castle : MonoBehaviour {
 
 	public Text text;
+    public Rigidbody2D whale;
+    private Vector3 whaleLocation;
+    private bool gravityLock;
 
-	//  Castle Class 
-	public class Castle{
 		private List<Civilian> civilians;		// List of civilians (or units) in the castle 
 		private int civiliansCount;				// Amount of citizens in the castle
 		private float castleWeight;				// Castle's current weight 
@@ -20,8 +21,10 @@ public class CastleBehavior : MonoBehaviour {
 		private int dayCounter;					// Keeps track of the amount of days that pass by 
 		private int neededEngr;					// Number of engineers needed to keep the castle in the sky 
 		private int timeCounter;
+        
 
 		// Constructor (Numbers are placeholders atm)
+        // Constructor still works with no explicit object declaration, I'm assuming Unity auto detects constructors
 		public Castle(){
 			civilians = new List<Civilian>();
 
@@ -32,11 +35,11 @@ public class CastleBehavior : MonoBehaviour {
 			}
 
 			civiliansCount = civilians.Count;
-			print(civiliansCount); 
+			//print(civiliansCount); 
 
 			// For loop access all the civilians weight and add them together to get Castle Weight 
 			for(int i = 0; i < civilians.Count; i++){
-				castleWeight = castleWeight + civilians[i].getWeight();
+				castleWeight += civilians[i].getWeight();
 			}
 
 			maxWeightCapacity = 100;				
@@ -135,8 +138,10 @@ public class CastleBehavior : MonoBehaviour {
 		public void updateCastleWeight(){
 			// For loop access all the civilians weight and add them together to get Castle Weight 
 			for(int i = 0; i < civilians.Count; i++){
-				castleWeight += civilians[i].getWeight();
-			}
+				//castleWeight += civilians[i].getWeight() * Time.deltaTime;
+                castleWeight += civilians[i].getWeight();
+
+            }
 		}
 
 		// Function will determine the decending or acending rate of the castle depending on the castle's distance of the ground and the castle's weight 
@@ -275,40 +280,77 @@ public class CastleBehavior : MonoBehaviour {
 				print ("GAMEOVER");
 		}
 			
+        //need to implement a function that decreases weight of the whale
+        //will need to use Vector3.MoveTowards
+    void floatUp()
+    {
+        if (!gravityLock)
+        {
+            whale.gravityScale = 0;
+            whale.velocity = Vector3.zero;   //whale bounces up and down because this line and the line below it are called in update
+            whale.velocity = new Vector3(0, 1, 0);
+            gravityLock = true;
+        }
+        Vector3.MoveTowards(whale.position, whaleLocation, Mathf.Abs(whale.position.y - whaleLocation.y));
+        //Debug.Log("whale origin: " + whaleLocation);
+        //Debug.Log("whale current: " + whale.position);
+    }
 
-	}
 
 
-	public Castle castle;
+	//public Castle castle;
 
+    public void increaseWeight()
+    {
+        // have to make whale.gravityScale increase and decrease by 0.926f
+        whale.gravityScale += 0.926f * Time.deltaTime;
+        //Debug.Log("castle y: " + whale.position.y);
+        //whale.gravityScale = castleWeight * .000001f;
+    }
 
-
-	// Use this for initialization
-	void Start () {
-		castle = new Castle ();
-		castle.gameover();
-		castle.updateCastleWeight();
-		castle.updateCivilianCount();
-		castle.decending_Ascending_Rate();
-		castle.updateTime();
-		castle.populationGrowth();
-		castle.checkDecayUnits();
-		int con = castle.getDayCounter();
-		string convert = con.ToString();
-		text.text = convert;
+    // Use this for initialization
+    void Start () {
+        whale = GetComponent<Rigidbody2D>();
+        whaleLocation = new Vector3(whale.transform.position.x, whale.transform.position.y);  //assign a location for the whale to float back up to
+        gravityLock = false;
+        //Debug.Log("Civilian numbers: " + civilians.Count);
+        //castle = new Castle ();
+		gameover();
+		updateCastleWeight();
+		updateCivilianCount();
+		decending_Ascending_Rate();
+		updateTime();
+		populationGrowth();
+		checkDecayUnits();
+		int con = getDayCounter();
+		//string convert = con.ToString();
+		//text.text = convert;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		castle.gameover();
-		castle.updateCastleWeight();
-		castle.updateCivilianCount();
-		castle.decending_Ascending_Rate();
-		castle.updateTime();
-		castle.populationGrowth();
-		castle.checkDecayUnits();
-		int con = castle.getDayCounter();
-		string convert = con.ToString();
-		text.text = convert;
+		gameover();
+		updateCastleWeight();
+		updateCivilianCount();
+		decending_Ascending_Rate();
+		updateTime();
+		populationGrowth();
+		checkDecayUnits();
+		int con = getDayCounter();
+        //string convert = con.ToString();
+        //text.text = convert;
+        if (castleWeight > 2000)
+        {
+            increaseWeight();
+        }
+
+        if (whale.position.y < -2)
+        {
+            floatUp();
+        }
+        //Debug.Log("Gravity scale: " + whale.gravityScale);
+        //Debug.Log("Weight: " + castleWeight);
+        //Debug.Log("Castle height: " + castleHeightDist);
+        
 	}
 }
