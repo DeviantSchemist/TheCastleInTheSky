@@ -9,7 +9,7 @@ public class Castle : MonoBehaviour {
 	public Text text;
     public Rigidbody2D whale;
     private Vector3 whaleLocation;
-    private float fallFromOriginDist;
+    private bool gravityLock;
 
 		private List<Civilian> civilians;		// List of civilians (or units) in the castle 
 		private int civiliansCount;				// Amount of citizens in the castle
@@ -284,9 +284,13 @@ public class Castle : MonoBehaviour {
         //will need to use Vector3.MoveTowards
     void floatUp()
     {
-        whale.gravityScale = 0;
-        whale.velocity = Vector3.zero;   //whale bounces up and down because this line and the line below it are called in update
-        whale.velocity = new Vector3(0, 1, 0);
+        if (!gravityLock)
+        {
+            whale.gravityScale = 0;
+            whale.velocity = Vector3.zero;   //whale bounces up and down because this line and the line below it are called in update
+            whale.velocity = new Vector3(0, 1, 0);
+            gravityLock = true;
+        }
         Vector3.MoveTowards(whale.position, whaleLocation, Mathf.Abs(whale.position.y - whaleLocation.y));
         //Debug.Log("whale origin: " + whaleLocation);
         //Debug.Log("whale current: " + whale.position);
@@ -308,6 +312,7 @@ public class Castle : MonoBehaviour {
     void Start () {
         whale = GetComponent<Rigidbody2D>();
         whaleLocation = new Vector3(whale.transform.position.x, whale.transform.position.y);  //assign a location for the whale to float back up to
+        gravityLock = false;
         //Debug.Log("Civilian numbers: " + civilians.Count);
         //castle = new Castle ();
 		gameover();
